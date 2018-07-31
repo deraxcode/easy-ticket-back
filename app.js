@@ -11,6 +11,14 @@ var usersRouter = require('./routes/users');
 var cors = require('cors')
 var app = express();
 
+var massive = require("massive");
+
+
+massive(process.env.DATABASE_URL).then(massiveInstance => {
+    app.set('db', massiveInstance);
+});
+
+
 //cors enabled
 app.use(cors())
 
