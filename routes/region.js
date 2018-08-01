@@ -3,6 +3,7 @@ var router = express.Router();
 const { check, validationResult } = require('express-validator/check');
 const Region = require('../model/Region');
 const Response = require('../domain/response');
+const consts = require("../util/consts")
 
 router.get("/:regionId?", [
     check('regionId')
@@ -16,7 +17,7 @@ router.get("/:regionId?", [
         var errors = validationResult(req);
         if (!errors.isEmpty()) {
             console.log(errors.mapped());
-            responseObject.errors.code = process.env.VALIDATION_ERROR;
+            responseObject.errors.code = consts.VALIDATION_ERROR_CODE;
             responseObject.errors.message = errors.mapped();
             return res.json(responseObject);
         }
@@ -47,7 +48,7 @@ router.get("/communes/:regionId", [
         var errors = validationResult(req);
         if (!errors.isEmpty()) {
             console.log(errors.mapped());
-            responseObject.errors.code = process.env.VALIDATION_ERROR;
+            responseObject.errors.code = consts.VALIDATION_ERROR_CODE;
             responseObject.errors.message = errors.mapped();
             return res.json(responseObject);
         }
