@@ -36,7 +36,7 @@ router.get("/:regionId?", [
 
 });
 
-router.get("/communes/:regionId", [
+router.get("/:regionId/communes/", [
     check('regionId')
         .exists()
         .isInt().withMessage('Provide a correct value'),
