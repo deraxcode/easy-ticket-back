@@ -5,7 +5,7 @@ const Region = require('../model/Region');
 const Response = require('../domain/response');
 const consts = require("../util/consts")
 
-router.get("/", [
+router.get("/:regionId?", [
     check('regionId')
         .optional()
         .isInt().withMessage('Provide a correct value'),
@@ -16,7 +16,7 @@ router.get("/", [
         if (!errors.isEmpty()) {
             return res.status(consts.VALIDATION_ERROR_CODE).json({ errors: errors.array() });
         }
-        var regionId = req.query.regionId;
+        var regionId = req.params.regionId;
         var regionDao = new Region(req.app.get('db'));
         var listRegions = await regionDao.getRegions(regionId).catch(err=>{ throw err;});
         return res.json(listRegions);
@@ -27,7 +27,7 @@ router.get("/", [
 
 });
 
-router.get("/communes", [
+router.get("/:regionId/communes", [
     check('regionId')
         .exists()
         .isInt().withMessage('Provide a correct value'),
@@ -38,7 +38,7 @@ router.get("/communes", [
         if (!errors.isEmpty()) {
             return res.status(consts.VALIDATION_ERROR_CODE).json({ errors: errors.array() });
         }
-        let regionId = req.query.regionId;        
+        let regionId = req.params.regionId;        
         var regionDao = new Region(req.app.get('db'));
         var listCommunes = await regionDao.getCommunesByRegion(regionId).catch(err=>{ throw err;});        
         return res.json(listCommunes);
