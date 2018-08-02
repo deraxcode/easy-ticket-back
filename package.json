@@ -7,6 +7,7 @@
     "start2": "supervisor --inspect node ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.4",
     "debug": "~2.6.9",
